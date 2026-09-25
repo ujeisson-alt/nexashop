@@ -1,0 +1,299 @@
+/* ==========================================================
+   NexaShop — Variables globales y reset
+   ========================================================== */
+:root {
+  /* Colores */
+  --color-primary: #1a56db;
+  --color-primary-dark: #1e3a8a;
+  --color-primary-light: #dbeafe;
+  --color-text: #111827;
+  --color-text-muted: #6b7280;
+  --color-bg: #f9fafb;
+  --color-surface: #ffffff;
+  --color-border: #e5e7eb;
+  --color-skeleton: #f3f4f6;
+  --color-success: #059669;
+  --color-danger: #dc2626;
+  --color-star: #f59e0b;
+
+  /* Tipografía */
+  --font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.5rem;
+  --fs-2xl: 2rem;
+
+  /* Espaciado */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+
+  /* Bordes y sombras */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 2px rgba(17, 24, 39, 0.06);
+  --shadow-md: 0 6px 16px rgba(17, 24, 39, 0.08);
+  --shadow-lg: 0 16px 32px rgba(17, 24, 39, 0.12);
+
+  --container: 1200px;
+  --navbar-height: 64px;
+  --transition: 0.2s ease;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--fs-md);
+  line-height: 1.5;
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+ul {
+  list-style: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-primary-light);
+  outline-offset: 2px;
+}
+
+/* ==========================================================
+   Layout y utilidades
+   ========================================================== */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4) var(--space-12);
+}
+
+.page-title {
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Botones */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  transition: background var(--transition), transform var(--transition),
+    box-shadow var(--transition), color var(--transition);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+}
+
+.btn--primary.is-added,
+.btn--primary.is-added:hover:not(:disabled) {
+  background: var(--color-success);
+}
+
+.btn--outline {
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.btn--outline:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.btn--ghost {
+  color: var(--color-primary);
+  padding: var(--space-2) var(--space-3);
+}
+
+.btn--ghost:hover {
+  background: var(--color-primary-light);
+}
+
+.btn--block {
+  width: 100%;
+}
+
+/* Grilla de productos — mobile-first: 1 → 2 → 3 → 4 columnas */
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 600px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Estado vacío / error */
+.state-box {
+  text-align: center;
+  padding: var(--space-12) var(--space-4);
+  background: var(--color-surface);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.state-box__icon {
+  font-size: 2.5rem;
+}
+
+.state-box__title {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+}
+
+.state-box p {
+  color: var(--color-text-muted);
+  max-width: 420px;
+}
+
+/* Selector de cantidad (compartido con el carrito) */
+.qty {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  height: 48px;
+}
+
+.qty__btn {
+  width: 44px;
+  height: 100%;
+  font-size: var(--fs-lg);
+  color: var(--color-text);
+  transition: background var(--transition);
+}
+
+.qty__btn:hover:not(:disabled) {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.qty__btn:disabled {
+  color: var(--color-border);
+  cursor: not-allowed;
+}
+
+.qty__value {
+  min-width: 40px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.qty--sm {
+  height: 36px;
+}
+
+.qty--sm .qty__btn {
+  width: 34px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
