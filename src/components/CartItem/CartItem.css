@@ -1,0 +1,122 @@
+/* Mobile: cada item es una tarjeta vertical */
+.cart-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'product product'
+    'qty subtotal'
+    'price remove';
+  gap: var(--space-3) var(--space-4);
+  align-items: center;
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.cart-item__product {
+  grid-area: product;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.cart-item__product:hover .cart-item__title {
+  color: var(--color-primary);
+}
+
+.cart-item__image {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2);
+  flex-shrink: 0;
+}
+
+.cart-item__info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.cart-item__category {
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+}
+
+.cart-item__title {
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color var(--transition);
+}
+
+.cart-item__price {
+  grid-area: price;
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+.cart-item__price::before {
+  content: attr(data-label) ': ';
+}
+
+.cart-item__qty {
+  grid-area: qty;
+}
+
+.cart-item__subtotal {
+  grid-area: subtotal;
+  font-weight: 800;
+  text-align: right;
+}
+
+.cart-item__remove {
+  grid-area: remove;
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+  transition: color var(--transition), background var(--transition);
+}
+
+.cart-item__remove:hover {
+  color: var(--color-danger);
+  background: #fee2e2;
+}
+
+/* Desktop: fila de tabla */
+@media (min-width: 768px) {
+  .cart-item {
+    grid-template-columns: 1fr 110px 130px 120px 48px;
+    grid-template-areas: 'product price qty subtotal remove';
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .cart-item__price {
+    color: var(--color-text);
+  }
+
+  .cart-item__price::before {
+    content: none;
+  }
+
+  .cart-item__remove-text {
+    display: none;
+  }
+}
